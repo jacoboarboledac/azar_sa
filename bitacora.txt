@@ -1,0 +1,3 @@
+[2026-05-23 23:48:24] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: negado
+[2026-05-23 23:49:03] Cliente: Admin | Solicitud: Crear Sorteo: Extraordinario | Resultado: ok
+[2026-05-23 23:49:09] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: ok

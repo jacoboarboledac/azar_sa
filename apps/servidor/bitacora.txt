@@ -1,0 +1,20 @@
+[2026-05-23 20:54:27] Cliente: Admin | Solicitud: Crear Sorteo Navidad | Resultado: ok
+[2026-05-23 21:09:02] Cliente: Admin | Solicitud: Crear Sorteo: Navidad | Resultado: ok
+[2026-05-23 21:09:32] Cliente: Admin | Solicitud: Crear Sorteo: Año Nuevo | Resultado: ok
+[2026-05-23 21:23:15] Cliente: Admin | Solicitud: Crear Sorteo: Halloween | Resultado: negado
+[2026-05-23 22:50:50] Cliente: Admin | Solicitud: Crear Sorteo: Halloween | Resultado: ok
+[2026-05-23 23:31:29] Cliente: Admin | Solicitud: Crear Sorteo: Extraordinario | Resultado: ok
+[2026-05-23 23:54:11] Cliente: Admin | Solicitud: Crear Sorteo: Extraordinario | Resultado: ok
+[2026-05-23 23:54:23] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: ok
+[2026-05-24 00:23:22] Cliente: Admin | Solicitud: Eliminar premio 'Premio Mayor' en 'Extraordinario' | Resultado: negado
+[2026-05-24 00:23:52] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: negado
+[2026-05-24 00:24:14] Cliente: Admin | Solicitud: Crear Sorteo: Extraordinario | Resultado: ok
+[2026-05-24 00:24:18] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: ok
+[2026-05-24 00:24:22] Cliente: Admin | Solicitud: Eliminar premio 'Premio Mayor' en 'Extraordinario' | Resultado: ok
+[2026-05-24 00:39:04] Cliente: Jugador | Solicitud: Registro de nuevo usuario: 12345678 | Resultado: ok
+[2026-05-24 00:58:57] Cliente: Admin | Solicitud: Crear Sorteo: Extraordinario | Resultado: ok
+[2026-05-24 00:59:16] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: ok
+[2026-05-24 00:59:24] Cliente: Jugador 12345678 | Solicitud: Compra billete 15 en Extraordinario | Resultado: ok
+[2026-05-24 01:06:13] Cliente: Admin | Solicitud: Crear Sorteo: Extraordinario | Resultado: ok
+[2026-05-24 01:06:25] Cliente: Admin | Solicitud: Agregar premio 'Premio Mayor' a 'Extraordinario' | Resultado: ok
+[2026-05-24 01:06:47] Cliente: Admin | Solicitud: Actualizar fecha a 2026-06-15 | Resultado: ok

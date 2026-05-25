@@ -1,0 +1,12 @@
+# Archivos de compilación y dependencias de Elixir
+/_build
+/deps
+/.elixir_ls
+
+# Archivos de datos generados por el sistema
+/data
+
+# Otros archivos que no deben subirse
+*.ez
+.erlang.cookie
+.DS_Store

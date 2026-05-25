@@ -1,0 +1,14 @@
+{
+  "billetes_vendidos": [],
+  "cantidad_billetes": 100,
+  "fecha": "2026-06-15",
+  "fracciones": 3,
+  "nombre": "Extraordinario",
+  "premios": [
+    {
+      "nombre": "Premio Mayor",
+      "valor": 100000000
+    }
+  ],
+  "valor": 50000
+}
