@@ -117,29 +117,49 @@ defmodule Servidor.Sorteo do
 
     IO.puts(IO.ANSI.magenta() <> "\n🎲 ¡Iniciando sorteo: #{nombre_sorteo}! 🎲" <> IO.ANSI.reset())
 
-    Enum.each(estado["premios"], fn premio ->
-      # 1. Sacamos la balota al azar
+    # 1. Identificar participantes únicos para el boletín general
+    participantes = estado["billetes_vendidos"]
+      |> Enum.map(fn venta -> venta["documento"] end)
+      |> Enum.uniq()
+
+    # 2. Sacar balotas y recolectar estructura de resultados para el JSON
+    resultados_lista = Enum.map(estado["premios"], fn premio ->
       billete_ganador = Enum.random(1..max_billetes)
       valor_por_fraccion = premio["valor"] / fracciones_totales
       
-      IO.puts("Premio '#{premio["nombre"]}' cae en el billete: #{billete_ganador}")
+      # Filtrar quiénes compraron ese número específico
+      ganadores_proceso = Enum.filter(estado["billetes_vendidos"], fn b -> b["numero"] == billete_ganador end)
+      documentos_ganadores = Enum.map(ganadores_proceso, fn g -> g["documento"] end) |> Enum.uniq()
 
-      # 2. Buscamos quién compró fracciones de ese billete
-      ganadores = Enum.filter(estado["billetes_vendidos"], fn b -> b["numero"] == billete_ganador end)
-      
-      # 3. Repartimos el premio
-      Enum.each(ganadores, fn g ->
+      # Enviar notificación privada de dinero a los ganadores
+      Enum.each(ganadores_proceso, fn g ->
         pago_total = g["fracciones"] * valor_por_fraccion
-        mensaje = "🏆 ¡Felicidades! Ganaste $#{pago_total} en #{nombre_sorteo}. (Premio: #{premio["nombre"]}, Billete: #{billete_ganador}, Fracciones: #{g["fracciones"]})"
-        
-        Servidor.Persistencia.agregar_notificacion_jugador(g["documento"], mensaje)
+        mensaje_ganador = "🏆 ¡Ganaste $#{pago_total} en #{nombre_sorteo}! (Premio: #{premio["nombre"]})"
+        Servidor.Persistencia.agregar_notificacion_jugador(g["documento"], mensaje_ganador)
       end)
+
+      # Estructura que guardaremos en el archivo del sorteo
+      %{
+        "premio_nombre" => premio["nombre"],
+        "numero_ganador" => billete_ganador,
+        "ganadores" => documentos_ganadores
+      }
+    end)
+
+    # 3. Enviar boletín informativo general a todos los participantes
+    texto_boletin = Enum.map(resultados_lista, fn r -> "#{r["premio_nombre"]}: ##{r["numero_ganador"]}" end) |> Enum.join(" | ")
+    mensaje_general = "📢 Resultados de #{nombre_sorteo} -> " <> texto_boletin
+    Enum.each(participantes, fn documento ->
+      Servidor.Persistencia.agregar_notificacion_jugador(documento, mensaje_general)
     end)
     
-    # 4. Marcamos el sorteo como finalizado para que no se vuelva a jugar
-    nuevo_estado = Map.put(estado, "estado", "finalizado")
+    # 4. Guardar TODO en el estado e inyectarlo en el JSON
+    nuevo_estado = estado
+      |> Map.put("estado", "finalizado")
+      |> Map.put("resultados", resultados_lista) # <-- AQUÍ GUARDAMOS LOS GANADORES
+
     Persistencia.guardar(nombre_sorteo, nuevo_estado)
 
-    {:reply, {:ok, "Sorteo ejecutado y premios repartidos."}, nuevo_estado}
+    {:reply, {:ok, "Sorteo ejecutado y resultados registrados."}, nuevo_estado}
   end
 end
